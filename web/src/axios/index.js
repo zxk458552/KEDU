@@ -1,9 +1,50 @@
-/**
- * Created by hao.cheng on 2017/4/16.
- */
+
 import axios from 'axios';
 import { get, post } from './tools';
 import * as config from './config';
+import "../mock/api.js"
+
+// export const SearchCityName = () => {
+
+//     axios.get('/api/IndexSearch')
+//     .then(res => res.data)
+//     .catch(err => console.log(err));
+//     // .then(res => { // get()中的参数要与mock.js文件中的Mock.mock()配置的路由保持一致
+//     //     //var tableData = res.data.tableData
+//     //     console.log(res) // 在console中看到数据
+//     // }).catch(err => {
+//     //     alert('wrong')
+//     // })
+
+// }
+
+
+//搜索功能
+export const getCityName = () => get({ url: '/api/IndexSearch' });
+
+export const searchWord = data =>
+    post({
+        url: '/api/SearchWord',
+        data: {
+            data
+        },
+    }).then(res => console.log("searchWord", res))
+
+//结果页展示
+export const tabChange = key =>
+    post({
+        url: '/api/tabChange',
+        data: key
+    }).then(res => console.log("tabChange", res))
+
+export const getDefaultResult = () => get({ url: '/api/IndexSearch' });
+
+export const getPriceResult = () => get({ url: '/api/IndexSearch' });
+
+export const getTimeResult = () => get({ url: '/api/IndexSearch' });
+
+
+
 
 export const getBbcNews = () => get({ url: config.NEWS_BBC });
 
@@ -23,7 +64,7 @@ export const gitOauthLogin = () =>
     get({
         url: `${
             config.GIT_OAUTH
-        }/authorize?client_id=792cdcd244e98dcd2dee&redirect_uri=http://localhost:3006/&scope=user&state=reactAdmin`,
+            }/authorize?client_id=792cdcd244e98dcd2dee&redirect_uri=http://localhost:3006/&scope=user&state=reactAdmin`,
     });
 export const gitOauthToken = code =>
     post({

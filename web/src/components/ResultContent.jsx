@@ -23,7 +23,7 @@ class ResultContent extends Component {
 
 
     callback = (key) => {
-        console.log(key);
+        console.log("callback",key);
     }
 
 
@@ -34,14 +34,14 @@ class ResultContent extends Component {
                 <Content style={{ width:1200 }}>
                 {/* <Row type="flex" justify="center" align="middle" style={{ height: 500, width: 900 }}> */}
                     <Tabs defaultActiveKey="1" size={'large'} onChange={this.callback}>
-                        <TabPane tab="Tab 1" key="1">
+                        <TabPane tab="相关性" key="1">
                             <ResultList />
                             Content of Tab Pane 1
                         </TabPane>
-                        <TabPane tab="Tab 2" key="2">
+                        <TabPane tab="价格" key="2">
                             Content of Tab Pane 2
                         </TabPane>
-                        <TabPane tab="Tab 3" key="3">
+                        <TabPane tab="时间" key="3">
                             Content of Tab Pane 3
                         </TabPane>
                     </Tabs>
