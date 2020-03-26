@@ -15,31 +15,34 @@ const { Option } = Select;
 const listData = [];
 const IconText = ({ icon, text }) => (
     <span>
-      {React.createElement(icon, { style: { marginRight: 8 } })}
-      {text}
+        {React.createElement(icon, { style: { marginRight: 8 } })}
+        {text}
     </span>
-  );
-  for (let i = 0; i < 23; i++) {
+);
+for (let i = 0; i < 23; i++) {
     listData.push({
-      href: 'http://ant.design',
-      title: `ant design part ${i}`,
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      description:
-        'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-      content:
-        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+        href: 'https://chongqing.anjuke.com/?pi=PZ-baidu-pc-all-biaoti',
+        title: `这是一个标题 ${i}`,
+        // avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+        description:
+            '这里是当前房屋的详细地址',
+        content:
+            '这里是标题写不下的详细信息，比如几室几厅，高低层啊，关键词啊',
     });
-  }
+}
 
 class ResultList extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            resultList: [],
+        };
     }
-    
+
 
 
     render() {
+        console.log("listData", listData)
         return (
             <div>
                 <List
@@ -49,13 +52,13 @@ class ResultList extends Component {
                         onChange: page => {
                             console.log(page);
                         },
-                        pageSize: 3,
+                        pageSize: 8,
                     }}
                     dataSource={listData}
                     footer={
                         <div>
                             <b>ant design</b> footer part
-      </div>
+                        </div>
                     }
                     renderItem={item => (
                         <List.Item
@@ -74,7 +77,7 @@ class ResultList extends Component {
                             }
                         >
                             <List.Item.Meta
-                                avatar={<Avatar src={item.avatar} />}
+                                // avatar={<Avatar src={item.avatar} />}
                                 title={<a href={item.href}>{item.title}</a>}
                                 description={item.description}
                             />

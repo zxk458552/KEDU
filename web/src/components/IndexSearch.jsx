@@ -62,6 +62,8 @@ class IndexSearch extends Component {
         this.setState({
             searchText: value,
         })
+        localStorage.setItem("searchCity",searchCity);
+        localStorage.setItem("searchText",searchText);
         console.log("searchText", searchText);
         searchWord(searchText);
         window.location.href = '/index/searchResult/1';
@@ -78,9 +80,9 @@ class IndexSearch extends Component {
         //window.location.href = '/index/search';
     }
     handleChange = (value) => {
-        console.log(value.label); // { key: "lucy", label: "Lucy (101)" }
+        console.log("value.key",value.key); // { key: "lucy", label: "Lucy (101)" }
         this.setState({
-            searchCity: value.label 
+            searchCity: value.key 
         })
     }
 
@@ -104,7 +106,7 @@ class IndexSearch extends Component {
                             <Col xs={{ span: 1, offset: 0 }} lg={{ span: 1, offset: 0 }}>
                                 <Select
                                     labelInValue
-                                    defaultValue={{ key: 'chongQing' }}
+                                    defaultValue={{ key: '请选择城市' }}
                                     style={{ width: 120 }}
                                     onChange={this.handleChange}
                                 >

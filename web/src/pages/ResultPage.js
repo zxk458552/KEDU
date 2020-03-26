@@ -5,7 +5,6 @@ import {
     Input, Row, Card, Typography,
     Select, Col
 } from 'antd';
-import ResultSearch from '../components/ResultSearch';
 import ResultContent from '../components/ResultContent';
 import { getCityName, searchWord } from '../axios/index'
 
@@ -21,7 +20,6 @@ class ResultPage extends Component {
             cityName: [],
             searchText: '',
             searchCity: '',
-            test: [11, 22, 33, 44]
         };
     }
 
@@ -47,6 +45,13 @@ class ResultPage extends Component {
                 cityName: arr2,
             })
         });
+        let searchCity = localStorage.getItem("searchCity");
+        let searchText = localStorage.getItem("searchText");
+        this.setState({
+            searchCity:searchCity,
+            searchText:searchText
+        })
+        console.log("getCityName",searchCity)
     }
 
     onSearch = (value) => {
@@ -58,18 +63,8 @@ class ResultPage extends Component {
         })
         console.log("searchText", searchText);
         searchWord(searchText);
-        //window.location.href = '/index/searchResult/1';
-        //this.props.history.push('/index/searchResult/1')
-        //this.context.history.push('/index/searchResult/1')
-        // this.props.history.push({
-        //     pathname:'/index/searchResult',
-        //     state: {
-        //     id: 3
-        // },}
-        // );
-
-        //window.location.href = 'https://baidu.com';
-        //window.location.href = '/index/search';
+        localStorage.setItem("searchCity",searchCity);
+        localStorage.setItem("searchText",searchText);
     }
     handleChange = (value) => {
         console.log(value.label); // { key: "lucy", label: "Lucy (101)" }
@@ -86,7 +81,7 @@ class ResultPage extends Component {
                     <Col xs={{ span: 1, offset: 0 }} lg={{ span: 1, offset: 0 }}>
                         <Select
                             labelInValue
-                            defaultValue={{ key: 'chongQing' }}
+                            defaultValue={{ key: this.state.searchCity }}
                             style={{ width: 120 }}
                             onChange={this.handleChange}
                         >
@@ -99,6 +94,7 @@ class ResultPage extends Component {
                     </Col>
                     <Col xs={{ span: 2, offset: 1 }} lg={{ span: 6, offset: 1 }}>
                         <Search
+                            defaultValue={ this.state.searchText }
                             placeholder="input search text"
                             enterButton
                             size="large"
