@@ -47,10 +47,18 @@ class ResultPage extends Component {
         });
         let searchCity = localStorage.getItem("searchCity");
         let searchText = localStorage.getItem("searchText");
-        this.setState({
-            searchCity:searchCity,
-            searchText:searchText
-        })
+        if(searchCity){
+            this.setState({
+                searchCity:searchCity,
+                searchText:searchText
+            })
+        }else {
+            this.setState({
+                searchCity:"请选择城市",
+                searchText:searchText
+            })
+        }
+        
         console.log("getCityName",searchCity)
     }
 

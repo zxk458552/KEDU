@@ -19,8 +19,8 @@ class HeaderMenu extends React.Component {
                             defaultSelectedKeys={['1']}
                             style={{ lineHeight: '64px' }}
                         >
-                            <Menu.Item key="1"><Link to='/'></Link>首页</Menu.Item>
-                            <Menu.Item key="2">nav 2</Menu.Item>
+                            <Menu.Item key="1"><Link to='/'></Link>首 页</Menu.Item>
+                            <Menu.Item key="2">热点地图</Menu.Item>
                             <Menu.Item key="3">nav 3</Menu.Item>
                         </Menu>
                     </Header>

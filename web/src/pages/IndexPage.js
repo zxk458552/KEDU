@@ -5,7 +5,7 @@ import HeaderMenu from '../components/HeaderMenu';
 import IndexSearch from '../components/IndexSearch';
 import Particles from 'react-particles-js';
 import ParticlesBg from 'particles-bg'
-import '../style/timg.jpg';
+
 
 
 const { Header, Content, Footer } = Layout;
