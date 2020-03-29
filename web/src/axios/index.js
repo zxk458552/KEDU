@@ -20,15 +20,22 @@ import "../mock/api.js"
 
 
 //搜索功能
-export const getCityName = () => get({ url: '/api/IndexSearch' });
-
-export const searchWord = data =>
+//export const getCityName = () => get({ url: '/api/IndexSearch' });
+export const searchCityKey = data =>
     post({
-        url: '/api/SearchWord',
+        url: '/api/SearchCityKey',
         data: {
             data
         },
-    }).then(res => console.log("searchWord", res))
+    }).then(res => console.log("SearchCityKey", res))
+export const searchWord = data =>
+    post({
+        url: '/test',
+        data: {
+            data
+        },
+    })
+    //  .then(res => console.log("searchWord!!!!!", res))
 
 //结果页展示
 export const tabChange = key =>
@@ -42,6 +49,27 @@ export const getDefaultResult = () => get({ url: '/api/IndexSearch' });
 export const getPriceResult = () => get({ url: '/api/IndexSearch' });
 
 export const getTimeResult = () => get({ url: '/api/IndexSearch' });
+
+
+// export const test = data =>
+//     post({
+//         url: '/test',
+//         data: {
+//             data
+//         },
+//     })
+
+// handelTest = (key) =>{
+//     test(key).then(res=>{
+//         console.log(res)
+//         var value = res;
+//         this.setState({
+//             testValue:value
+//         })
+//     })
+
+// }
+
 
 
 

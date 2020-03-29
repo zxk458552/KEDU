@@ -6,7 +6,7 @@ import {
     Select, Col
 } from 'antd';
 import ResultContent from '../components/ResultContent';
-import { getCityName, searchWord } from '../axios/index'
+import { getCityName, searchWord ,searchCityKey} from '../axios/index'
 
 
 
@@ -17,45 +17,68 @@ class ResultPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cityName: [],
-            searchText: '',
+            cityName: [
+                {
+                    key: "cq",
+                    name: "重庆",
+            
+                },
+                {
+                    key: "gd",
+                    name: "广东",
+            
+                },
+                {
+                    key: "jl",
+                    name: "吉林",
+            
+                },
+            ],
+            searchText: {
+                cityKey:"",
+                keyword:""
+            },
             searchCity: '',
         };
     }
 
     componentWillMount() {
-        getCityName().then(res => {
-            console.log(22, res)
-            var arr = [];
-            var arr2 = [];
-            for (let i in res) {
-                //data[i] = res[i];
-                arr.push(res[i])
-            }
-            console.log("arr", arr)
-            arr.map((item, index) => {
-                item.map((value, key) => {
-                    console.log("value", value)
-                    console.log("key", key)
-                    arr2.push(value)
-                })
-            })
-            console.log("arr2", arr2)
-            this.setState({
-                cityName: arr2,
-            })
-        });
-        let searchCity = localStorage.getItem("searchCity");
+        // getCityName().then(res => {
+        //     console.log(22, res)
+        //     var arr = [];
+        //     var arr2 = [];
+        //     for (let i in res) {
+        //         //data[i] = res[i];
+        //         arr.push(res[i])
+        //     }
+        //     console.log("arr", arr)
+        //     arr.map((item, index) => {
+        //         item.map((value, key) => {
+        //             console.log("value", value)
+        //             console.log("key", key)
+        //             arr2.push(value)
+        //         })
+        //     })
+        //     console.log("arr2", arr2)
+        //     this.setState({
+        //         cityName: arr2,
+        //     })
+        // });
+        let searchCity = localStorage.getItem("searchCityKey");
         let searchText = localStorage.getItem("searchText");
         if(searchCity){
             this.setState({
-                searchCity:searchCity,
-                searchText:searchText
+                searchText:{
+                    cityKey: searchCity,
+                    keyword: searchText
+                } 
             })
         }else {
             this.setState({
-                searchCity:"请选择城市",
-                searchText:searchText
+                searchText:{
+                    cityKey: "请选择城市",
+                    keyword: searchText
+                } 
             })
         }
         
@@ -63,24 +86,26 @@ class ResultPage extends Component {
     }
 
     onSearch = (value) => {
-        console.log("onsearch", value);
-        var searchCity = this.state.searchCity;
         var searchText = value;
         this.setState({
-            searchText: value,
+            searchText:{
+                // cityKey: searchCity,
+                keyword:searchText
+            } 
         })
-        console.log("searchText", searchText);
-        searchWord(searchText);
-        localStorage.setItem("searchCity",searchCity);
         localStorage.setItem("searchText",searchText);
+        searchWord(searchText);
+        //window.location.href = '/index/searchResult/1';
     }
     handleChange = (value) => {
-        console.log(value.label); // { key: "lucy", label: "Lucy (101)" }
+        console.log("value.key",value.key); // { key: "lucy", label: "Lucy (101)" }
+        localStorage.setItem("searchCityKey",value.key);
         this.setState({
-            searchCity: value.label
+            searchText:{cityKey: value.key} 
         })
     }
     render() {
+        console.log("6666666",this.state.searchText)
         return (
             <div>
                 <HeaderMenu />
@@ -89,7 +114,7 @@ class ResultPage extends Component {
                     <Col xs={{ span: 1, offset: 0 }} lg={{ span: 1, offset: 0 }}>
                         <Select
                             labelInValue
-                            defaultValue={{ key: this.state.searchCity }}
+                            defaultValue={{ key: this.state.searchText.cityKey }}
                             style={{ width: 120 }}
                             onChange={this.handleChange}
                         >
@@ -102,7 +127,7 @@ class ResultPage extends Component {
                     </Col>
                     <Col xs={{ span: 2, offset: 1 }} lg={{ span: 6, offset: 1 }}>
                         <Search
-                            defaultValue={ this.state.searchText }
+                            defaultValue={ this.state.searchText.keyword }
                             placeholder="input search text"
                             enterButton
                             size="large"

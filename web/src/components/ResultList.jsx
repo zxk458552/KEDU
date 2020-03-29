@@ -7,7 +7,7 @@ import {
     Select, Col
 } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
-
+import { searchWord, searchCityKey } from '../axios/index'
 
 const { Header, Content, Footer } = Layout;
 const { Search } = Input;
@@ -19,17 +19,17 @@ const IconText = ({ icon, text }) => (
         {text}
     </span>
 );
-for (let i = 0; i < 23; i++) {
-    listData.push({
-        href: 'https://chongqing.anjuke.com/?pi=PZ-baidu-pc-all-biaoti',
-        title: `这是一个标题 ${i}`,
-        // avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-        description:
-            '这里是当前房屋的详细地址',
-        content:
-            '这里是标题写不下的详细信息，比如几室几厅，高低层啊，关键词啊',
-    });
-}
+// for (let i = 0; i < 23; i++) {
+//     listData.push({
+//         href: 'https://chongqing.anjuke.com/?pi=PZ-baidu-pc-all-biaoti',
+//         title: `这是一个标题 ${i}`,
+//         // avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+//         description:
+//             '这里是当前房屋的详细地址',
+//         content:
+//             '这里是标题写不下的详细信息，比如几室几厅，高低层啊，关键词啊',
+//     });
+// }
 
 class ResultList extends Component {
     constructor(props) {
@@ -39,10 +39,39 @@ class ResultList extends Component {
         };
     }
 
+    componentWillMount() {
+        searchWord().then(res => {
+            // console.log("resultList",res.data);
+            // var resultList = JSON.stringify(res.data);
+            // console.log("resultLis2222222t",resultList);
+            var arr = [];
+            var arr2 = [];
+            for (let i in res) {
+                //data[i] = res[i];
+                arr.push(res[i])
+            }
+            console.log("arr", arr)
+            arr.map((item, index) => {
+                item.map((value, key) => {
+                    console.log("value", value)
+                    console.log("key", key)
+                    arr2.push(value)
+                })
+            })
+            console.log("arr2", arr2)
+            this.setState({
+                resultList: arr2
+            })
+        })
+
+
+    }
+
 
 
     render() {
         console.log("listData", listData)
+        console.log("this.state.resultList", this.state.resultList)
         return (
             <div>
                 <List
@@ -54,7 +83,7 @@ class ResultList extends Component {
                         },
                         pageSize: 8,
                     }}
-                    dataSource={listData}
+                    dataSource={this.state.resultList}
                     footer={
                         <div>
                             <b>ant design</b> footer part

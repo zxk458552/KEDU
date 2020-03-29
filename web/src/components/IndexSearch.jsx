@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router'; // 或者 是
 import Item from 'antd/lib/list/Item';
 //import { withRouter } from 'react-router-dom';
-import { getCityName, searchWord } from '../axios/index'
+import { getCityName, searchWord ,searchCityKey} from '../axios/index'
 import axios from "axios";
 import "../mock/api.js"
 
@@ -23,75 +23,81 @@ class IndexSearch extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            cityName: [],
-            searchText: '',
+            cityName: [
+                {
+                    key: "cq",
+                    name: "重庆",
+            
+                },
+                {
+                    key: "gd",
+                    name: "广东",
+            
+                },
+                {
+                    key: "jl",
+                    name: "吉林",
+            
+                },
+            ],
+            searchText: {
+                cityKey:"",
+                keyword:""
+            },
             searchCity: '',
-            test: [11, 22, 33, 44]
+            
 
 
         }
     }
     componentWillMount() {
-        getCityName().then(res => {
-            console.log(22, res)
-            var arr = [];
-            var arr2 = [];
-            for (let i in res) {
-                //data[i] = res[i];
-                arr.push(res[i])
-            }
-            console.log("arr", arr)
-            arr.map((item, index) => {
-                item.map((value, key) => {
-                    console.log("value", value)
-                    console.log("key", key)
-                    arr2.push(value)
-                })
-            })
-            console.log("arr2", arr2)
-            this.setState({
-                cityName: arr2,
-            })
-        });
+        // getCityName().then(res => {
+        //     console.log(22, res)
+        //     var arr = [];
+        //     var arr2 = [];
+        //     for (let i in res) {
+        //         //data[i] = res[i];
+        //         arr.push(res[i])
+        //     }
+        //     console.log("arr", arr)
+        //     arr.map((item, index) => {
+        //         item.map((value, key) => {
+        //             console.log("value", value)
+        //             console.log("key", key)
+        //             arr2.push(value)
+        //         })
+        //     })
+        //     console.log("arr2", arr2)
+        //     this.setState({
+        //         cityName: arr2,
+        //     })
+        // });
     }
 
     onSearch = (value) => {
         console.log("onsearch", value);
-        var searchCity = this.state.searchCity;
+        var searchCity = this.state.searchText.cityKey;
         var searchText = value;
         this.setState({
-            searchText: value,
+            searchText:{
+                cityKey: searchCity,
+                keyword:value,
+            } 
         })
-        localStorage.setItem("searchCity",searchCity);
+        localStorage.setItem("searchCityKey",searchCity);
         localStorage.setItem("searchText",searchText);
-        console.log("searchText", searchText);
         searchWord(searchText);
         window.location.href = '/index/searchResult/1';
-        //this.props.history.push('/index/searchResult/1')
-        //this.context.history.push('/index/searchResult/1')
-        // this.props.history.push({
-        //     pathname:'/index/searchResult',
-        //     state: {
-        //     id: 3
-        // },}
-        // );
-
-        //window.location.href = 'https://baidu.com';
-        //window.location.href = '/index/search';
     }
     handleChange = (value) => {
         console.log("value.key",value.key); // { key: "lucy", label: "Lucy (101)" }
         this.setState({
-            searchCity: value.key 
+            searchText:{cityKey: value.key} 
         })
     }
 
     render() {
-
-        let cityName = this.state.cityName;
-        let test = this.state.test;
-        const { formData } = this.state;
-        console.log(11, cityName)
+        console.log("6666666",this.state.searchText)
         return (
             <div>
                 <div>
