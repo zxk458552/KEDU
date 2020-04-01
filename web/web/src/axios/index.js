@@ -21,22 +21,35 @@ import "../mock/api.js"
 
 //搜索功能
 //export const getCityName = () => get({ url: '/api/IndexSearch' });
+export const getUserip = () => get({ url: '/utils/getip' });
+// export const checkUserip = data =>
+//     post({
+//         // url: '/api/SearchWord',
+//         url: '/ip/checktest',
+//         data: {
+//             data
+//         },
+//     })
+export const checkUserip = () => get({ url: '/ip/checktest' });
+
+
+    
 export const searchCityKey = data =>
     post({
-        url: '/api/SearchCityKey',
-        data: {
-            data
-        },
-    }).then(res => console.log("SearchCityKey", res))
-export const searchWord = data =>
-    post({
-        url: '/test',
+        // url: '/api/SearchWord',
+        url: '/test/getcity',
         data: {
             data
         },
     })
-    //  .then(res => console.log("searchWord!!!!!", res))
-
+export const searchWord = data =>
+    post({
+        // url: '/api/SearchWord',
+        url: '/test/search',
+        data: {
+            data
+        },
+    })
 //结果页展示
 export const tabChange = key =>
     post({
@@ -44,13 +57,24 @@ export const tabChange = key =>
         data: key
     }).then(res => console.log("tabChange", res))
 
-export const getDefaultResult = () => get({ url: '/api/IndexSearch' });
+//export const getPriceResult = () => get({ url: '/test/sortprice' });
+export const getPriceResult = data =>
+    post({
+        // url: '/api/SearchWord',
+        url: '/test/sortprice',
+        data: {
+            data
+        },
+    })
 
-export const getPriceResult = () => get({ url: '/api/IndexSearch' });
-
-export const getTimeResult = () => get({ url: '/api/IndexSearch' });
-
-
+export const postIpAgain = data =>
+    post({
+        // url: '/api/SearchWord',
+        url: '/ip/doneviptest',
+        data: {
+            data
+        },
+    })
 // export const test = data =>
 //     post({
 //         url: '/test',

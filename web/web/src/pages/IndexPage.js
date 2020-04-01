@@ -5,31 +5,36 @@ import HeaderMenu from '../components/HeaderMenu';
 import IndexSearch from '../components/IndexSearch';
 import Particles from 'react-particles-js';
 import ParticlesBg from 'particles-bg'
-
+import { getUserip} from '../axios/index'
 
 
 const { Header, Content, Footer } = Layout;
-const objArr = [
-  {
-    value: "this",
-    label: "this"
-  },
-  {
-    value: "is",
-    label: "is"
-  },
-  {
-    value: "test",
-    label: "test"
-  }
-];
-
 
 
 class IndexPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        requestTyoe: false,
+        userIp:'',
+
+    };
+}
+  componentWillMount(){
+    localStorage.removeItem("menuKey");
+    console.log("menuKey is clear")
+    getUserip().then(res => {
+      console.log("getUserip",res)
+      var userIp = res;
+      this.setState({
+        userIp 
+      })
+      localStorage.setItem("userIp",userIp)
+    });
+    
+  }
 
   render() {
-    console.log("objArr", objArr)
     return (
       <div>
         {/* <ParticlesBg  bg={true} config={config} background-color="#1890ff"/> */}
@@ -164,6 +169,14 @@ class IndexPage extends React.Component {
         <Content >
           <IndexSearch />
         </Content>
+        <div id="index-footer">
+          KEDU  ©2020 Created by Zxk Yxy Wmx
+        </div>
+        {/* <Layout>
+          <Footer style={position='fixed', bottom=0}>
+
+          </Footer>
+        </Layout> */}
       </div>
 
     );

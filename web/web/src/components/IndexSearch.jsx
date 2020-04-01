@@ -1,11 +1,11 @@
-import { Input, Row, Card, Typography, Select, Col, Divider } from 'antd';
+import { Input, Row, Card, Typography, Select, Col, Divider ,message} from 'antd';
 import React, { Component } from 'react';
 import '../style/IndexSearch.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router'; // 或者 是
 import Item from 'antd/lib/list/Item';
 //import { withRouter } from 'react-router-dom';
-import { getCityName, searchWord ,searchCityKey} from '../axios/index'
+import { getCityName, searchWord ,searchCityKey,checkUserip} from '../axios/index'
 import axios from "axios";
 import "../mock/api.js"
 
@@ -39,12 +39,141 @@ class IndexSearch extends Component {
                     name: "吉林",
             
                 },
+                {
+                    key: "ah",
+                    name: "安徽",
+            
+                },
+                {
+                    key: "bj",
+                    name: "北京",
+            
+                },
+                {
+                    key: "fj",
+                    name: "福建",
+            
+                },
+                {
+                    key: "gz",
+                    name: "贵州",
+            
+                },
+                {
+                    key: "gx",
+                    name: "广西",
+            
+                },
+                {
+                    key: "gs",
+                    name: "甘肃",
+            
+                },
+                {
+                    key: "hubei",
+                    name: "湖北",
+            
+                },
+                {
+                    key: "hunan",
+                    name: "湖南",
+            
+                },
+                {
+                    key: "hebei",
+                    name: "河北",
+            
+                },
+                {
+                    key: "henan",
+                    name: "河南",
+            
+                },
+                {
+                    key: "hainan",
+                    name: "海南",
+            
+                },
+                {
+                    key: "hlj",
+                    name: "黑龙江",
+            
+                },
+                {
+                    key: "js",
+                    name: "江苏",
+            
+                },
+                {
+                    key: "jx",
+                    name: "江西",
+            
+                },
+                {
+                    key: "ln",
+                    name: "辽宁",
+            
+                },
+                {
+                    key: "nmg",
+                    name: "内蒙古",
+            
+                },
+                {
+                    key: "nx",
+                    name: "宁夏",
+            
+                },
+                {
+                    key: "sh",
+                    name: "上海",
+            
+                },
+                {
+                    key: "sc",
+                    name: "四川",
+            
+                },
+                {
+                    key: "sd",
+                    name: "山东",
+            
+                },
+                {
+                    key: "shanxi1",
+                    name: "山西",
+            
+                },
+                {
+                    key: "shanxi3",
+                    name: "陕西",
+            
+                },
+                {
+                    key: "tj",
+                    name: "天津",
+            
+                },
+                {
+                    key: "yn",
+                    name: "云南",
+            
+                },
+                {
+                    key: "zj",
+                    name: "浙江",
+            
+                },
             ],
             searchText: {
                 cityKey:"",
                 keyword:""
             },
-            searchCity: '',
+            searchCity: 'cq',
+            cityKey:'cq',
+            keyword:'',
+            resultList:[],
+            checkType:[],
             
 
 
@@ -76,28 +205,51 @@ class IndexSearch extends Component {
 
     onSearch = (value) => {
         console.log("onsearch", value);
-        var searchCity = this.state.searchText.cityKey;
+        var searchCity = this.state.cityKey;
         var searchText = value;
         this.setState({
-            searchText:{
-                cityKey: searchCity,
-                keyword:value,
-            } 
+            cityKey: searchCity,
+            keyword:value,
         })
-        localStorage.setItem("searchCityKey",searchCity);
-        localStorage.setItem("searchText",searchText);
-        searchWord(searchText);
-        window.location.href = '/index/searchResult/1';
+        checkUserip().then(res =>{
+            console.log("checkUserip",res)
+            var checkType = res
+            this.setState({
+                checkType :checkType
+            })
+            if(value){
+                console.log("查看传进his.state.checkType",checkType)
+                if(checkType == '1'){
+                    localStorage.setItem("searchCityKey",this.state.cityKey);
+                    localStorage.setItem("searchText",value);
+                    window.location.href = '/index/searchResult/1';
+                    return;
+                }
+                else{
+                    message.warning('抱歉，您的免费搜索次数已达上限，请付费后继续使用！');
+                    // window.location.href = '/index/payPage/1';
+                    console.log("this.state.checkType",checkType)
+                }
+            }else{
+                message.warning('关键字请勿为空，请重新输入！');
+            }
+
+  
+
+        })
+        //  this.turnPage(searchText);
+        
+
     }
     handleChange = (value) => {
         console.log("value.key",value.key); // { key: "lucy", label: "Lucy (101)" }
         this.setState({
-            searchText:{cityKey: value.key} 
+            cityKey: value.key
         })
     }
 
     render() {
-        console.log("6666666",this.state.searchText)
+        console.log("查看传进his.state.checkType",this.state.checkType)
         return (
             <div>
                 <div>
@@ -112,9 +264,10 @@ class IndexSearch extends Component {
                             <Col xs={{ span: 1, offset: 0 }} lg={{ span: 1, offset: 0 }}>
                                 <Select
                                     labelInValue
-                                    defaultValue={{ key: '请选择城市' }}
+                                    defaultValue={{ key: 'cq' }}
                                     style={{ width: 120 }}
                                     onChange={this.handleChange}
+                                    // onBlur={this.handleBlur}
                                 >
                                     {this.state.cityName.map((item, index) => {
                                         return (
