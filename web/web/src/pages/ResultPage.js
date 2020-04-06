@@ -167,7 +167,7 @@ class ResultPage extends Component {
             searchCity: '',
             cityKey:'',
             keyword:'',
-            checkType:false
+            checkType:'1'
         };
     }
 
@@ -208,33 +208,33 @@ class ResultPage extends Component {
     onSearch = (value) => {
         var searchText = value;
         var userIp = localStorage.getItem("userIp");
-        console.log("查看传进checkUserip2",userIp)
-        checkUserip(userIp).then(res =>{
-            console.log("checkUserip",res)
-            var checkType = res
-            this.setState({
-                checkType :checkType
-            })
-            if(value){
-                console.log("查看传进his.state.checkType",checkType)
-                if(checkType == '1'){
-                    localStorage.setItem("searchCityKey",this.state.cityKey);
-                    localStorage.setItem("searchText",value);
-                    window.location.href = '/index/searchResult/1';
-                    return;
-                }
-                else{
-                    message.warning('抱歉，您的免费搜索次数已达上限，请付费后继续使用！');
-                    // window.location.href = '/index/payPage/1';
-                    console.log("this.state.checkType",checkType)
-                }
-            }else{
-                message.warning('关键字请勿为空，请重新输入！');
+        console.log("查看传进checkUserip2", userIp)
+        if (value) {
+            checkUserip(userIp).then(res => {
+                console.log("checkUserip", res)
+                var checkType = res
+                this.setState({
+                    checkType: checkType
+                })
+                console.log("查看传进his.state.checkType", checkType)
+            if (checkType == '1') {
+                localStorage.setItem("searchCityKey", this.state.cityKey);
+                localStorage.setItem("searchText", value);
+                window.location.href = '/index/searchResult/1';
+                return;
             }
+            else {
+                message.warning('抱歉，您的免费搜索次数已达上限，请付费后继续使用！');
+                // window.location.href = '/index/payPage/1';
+                console.log("this.state.checkType", checkType)
+            }
+            })
+            
+        } else {
+            message.warning('关键字请勿为空，请重新输入！');
+        }
 
-        })
 
-        
     }
     handleChange = (value) => {
         console.log("value.key",value.key); // { key: "lucy", label: "Lucy (101)" }

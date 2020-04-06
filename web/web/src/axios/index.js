@@ -22,15 +22,15 @@ import "../mock/api.js"
 //搜索功能
 //export const getCityName = () => get({ url: '/api/IndexSearch' });
 export const getUserip = () => get({ url: '/utils/getip' });
-// export const checkUserip = data =>
-//     post({
-//         // url: '/api/SearchWord',
-//         url: '/ip/checktest',
-//         data: {
-//             data
-//         },
-//     })
-export const checkUserip = () => get({ url: '/ip/checktest' });
+export const checkUserip = data =>
+    post({
+        // url: '/api/SearchWord',
+        url: '/ip/check',
+        data: {
+            data
+        },
+    })
+//export const checkUserip = () => get({ url: '/ip/checktest' });
 
 
     
@@ -70,7 +70,7 @@ export const getPriceResult = data =>
 export const postIpAgain = data =>
     post({
         // url: '/api/SearchWord',
-        url: '/ip/doneviptest',
+        url: '/ip/donevip',
         data: {
             data
         },
