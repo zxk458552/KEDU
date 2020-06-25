@@ -11,6 +11,12 @@ import { getCityName, searchWord, searchCityKey } from '../axios/index'
 import qrcode from '../style/imgs/qrcode.png';
 import PayStep from '../components/PayStep';
 
+
+/**
+ * 付费页面
+ */
+
+
 const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 const { Option } = Select;
@@ -28,12 +34,6 @@ class PayPage extends Component {
         return (
             <div>
                 <HeaderMenu />
-                {/* <Row gutter={[48, 48]} style={{ position: "relative", paddingTop: 500 }}>
-                    <PayStep />
-                </Row> */}
-                {/* <div>
-                    <p id="attention">抱歉您的使用次数已达上限，如想继续访问本网站的搜索功能请完成以下步骤：</p>
-                </div> */}
                 <div id="step-box">
                     <PayStep />
                 </div>

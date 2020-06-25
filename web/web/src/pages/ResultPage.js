@@ -10,6 +10,9 @@ import ResultCard from '../components/ResultCard';
 import { checkUserip} from '../axios/index'
 
 
+/**
+ * 搜索结果页（含搜索组件）
+ */
 
 const { Header, Content, Footer } = Layout;
 const { Search } = Input;
@@ -172,51 +175,23 @@ class ResultPage extends Component {
     }
 
     componentWillMount() {
-        // getCityName().then(res => {
-        //     console.log(22, res)
-        //     var arr = [];
-        //     var arr2 = [];
-        //     for (let i in res) {
-        //         //data[i] = res[i];
-        //         arr.push(res[i])
-        //     }
-        //     console.log("arr", arr)
-        //     arr.map((item, index) => {
-        //         item.map((value, key) => {
-        //             console.log("value", value)
-        //             console.log("key", key)
-        //             arr2.push(value)
-        //         })
-        //     })
-        //     console.log("arr2", arr2)
-        //     this.setState({
-        //         cityName: arr2,
-        //     })
-        // });
         let searchCity = localStorage.getItem("searchCityKey");
         let searchText = localStorage.getItem("searchText");
         this.setState({
-
             cityKey: searchCity,
             keyword: searchText
-
         })
-        
-        console.log("getCityName",searchCity)
     }
 
     onSearch = (value) => {
         var searchText = value;
         var userIp = localStorage.getItem("userIp");
-        console.log("查看传进checkUserip2", userIp)
         if (value) {
             checkUserip(userIp).then(res => {
-                console.log("checkUserip", res)
                 var checkType = res
                 this.setState({
                     checkType: checkType
                 })
-                console.log("查看传进his.state.checkType", checkType)
             if (checkType == '1') {
                 localStorage.setItem("searchCityKey", this.state.cityKey);
                 localStorage.setItem("searchText", value);
@@ -225,8 +200,6 @@ class ResultPage extends Component {
             }
             else {
                 message.warning('抱歉，您的免费搜索次数已达上限，请付费后继续使用！');
-                // window.location.href = '/index/payPage/1';
-                console.log("this.state.checkType", checkType)
             }
             })
             
@@ -237,7 +210,6 @@ class ResultPage extends Component {
 
     }
     handleChange = (value) => {
-        console.log("value.key",value.key); // { key: "lucy", label: "Lucy (101)" }
         localStorage.setItem("searchCityKey",value.key);
         this.setState({
             cityKey: value.key
@@ -296,19 +268,6 @@ class ResultPage extends Component {
                 }}>
                     KEDU  ©2020 Created by Zxk Yxy Wmx
                 </div>
-                {/* <div id="footer" style={{ 
-                position:'relative',
-                bottom:0 ,
-                height: 30,
-                color: 'white',
-                lineHeight: '30px',
-                backgroundColor: '#001529',
-                textAlign: 'center'
-            }}>
-                    KEDU  ©2020 Created by Zxk Yxy Wmx
-                </div> */}
-
-
             </div>
         );
     }

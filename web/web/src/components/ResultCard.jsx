@@ -9,6 +9,12 @@ import {
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { searchWord, searchCityKey } from '../axios/index'
 
+
+/**
+ * 推荐卡片组件
+ */
+
+
 const { TabPane } = Tabs;
 const { Header, Content, Footer } = Layout;
 const { Meta } = Card;
@@ -38,10 +44,6 @@ class ResultCard extends Component {
                 var i = 0
                 for (const element of res) {
                     if(!res[i+1]){
-                        // this.setState({
-                        //     totalHits:res[i].totalHits,
-                        //     totalTime:res[i].totalTime,
-                        // })
                         break;
                     }
                     arr.push(res[i]);
@@ -70,7 +72,6 @@ class ResultCard extends Component {
             }
             array2.push(array1[i]);
             i=i+1;
-            // console.log(i,"i")
         }
         
     }
@@ -78,8 +79,6 @@ class ResultCard extends Component {
 
 
     render() {
-        console.log("qqq",this.state.resultList)
-        console.log("rrr",this.state.cardList)
         return (
             <div>
                 {
@@ -104,11 +103,6 @@ class ResultCard extends Component {
     
                                         />
                                     }
-                                    // actions={[
-                                    //     <SettingOutlined key="setting" />,
-                                    //     <EditOutlined key="edit" />,
-                                    //     <EllipsisOutlined key="ellipsis" />,
-                                    // ]}
                                 >
                                     <Meta
                                         avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
@@ -132,7 +126,6 @@ class ResultCard extends Component {
                 </Row>
                 </ div>
                 :
-                // <Empty />
                 <div style={{
                     width:300,
                     height:300,

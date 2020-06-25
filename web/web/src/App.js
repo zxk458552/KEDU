@@ -14,8 +14,6 @@ class App extends React.Component {
         
         <Router>
         <Switch>
-            {/* <Redirect from = '/' to='/index/:id' exact></Redirect> */}
-            {/* <Route exact path="/index/:id" component={IndexPage}/> */}
             <Route exact path="/" component={IndexPage}/>
             <Route exact path="/index/searchResult/:id" component={ResultPage}/>
             <Route exact path="/index/payPage/:id" component={PayPage}/>

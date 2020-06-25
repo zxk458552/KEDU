@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom';
 import { postIpAgain} from '../axios/index'
 
 
+/**
+ * 付费步骤组件
+ */
+
 const { Meta } = Card;
 const { Step } = Steps;
 
@@ -39,7 +43,7 @@ class PayStep extends Component {
                 style={{ width: 200 }}
                 cover={<img alt="example" src={qrcode} />}
             >
-                <Meta title="请扫描以上二维码" description="1元五次" />
+                <Meta title="请扫描以上二维码" description="永久VIP" />
             </Card>
             </div>
           )
@@ -64,7 +68,6 @@ class PayStep extends Component {
         return (
             <div>
         <Steps current={current}
-        // style={{height:600}}
         >
           {steps.map(item => (
             <Step key={item.title} title={item.title} />

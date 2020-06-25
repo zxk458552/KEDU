@@ -7,6 +7,11 @@ import {
 } from 'antd';
 import { Link } from 'react-router-dom';
 
+
+/**
+ * 付费成功反馈页
+ */
+
 const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 const { Option } = Select;
@@ -20,8 +25,8 @@ class PayResult extends Component {
         };
     }
     clearItem = () => {
-        // localStorage.removeItem("menuKey");
-        // console.log("menuKey is clear")
+        localStorage.removeItem("menuKey");
+        console.log("menuKey is clear")
     }
 
     render() {

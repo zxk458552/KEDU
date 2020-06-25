@@ -9,6 +9,11 @@ import { getCityName, searchWord ,searchCityKey,checkUserip} from '../axios/inde
 import axios from "axios";
 import "../mock/api.js"
 
+/**
+ * 首页搜索
+ */
+
+
 const { Title } = Typography;
 
 const { Search } = Input;
@@ -180,52 +185,22 @@ class IndexSearch extends Component {
         }
     }
     componentWillMount() {
-        // getCityName().then(res => {
-        //     console.log(22, res)
-        //     var arr = [];
-        //     var arr2 = [];
-        //     for (let i in res) {
-        //         //data[i] = res[i];
-        //         arr.push(res[i])
-        //     }
-        //     console.log("arr", arr)
-        //     arr.map((item, index) => {
-        //         item.map((value, key) => {
-        //             console.log("value", value)
-        //             console.log("key", key)
-        //             arr2.push(value)
-        //         })
-        //     })
-        //     console.log("arr2", arr2)
-        //     this.setState({
-        //         cityName: arr2,
-        //     })
-        // });
+       
     }
 
     onSearch = (value) => {
-        console.log("onsearch", value);
         var searchCity = this.state.cityKey;
-        var searchText = value;
         this.setState({
             cityKey: searchCity,
             keyword: value,
         })
         var userIp = localStorage.getItem("userIp");
-        // checkUserip(userIp).then(res =>{
-        //     console.log("checkUserip",res)
-        //     var checkType = res
-        //     this.setState({
-        //         checkType :checkType
-        //     })
         if (value) {
             checkUserip(userIp).then(res => {
-                console.log("checkUserip", res)
                 var checkType = res
                 this.setState({
                     checkType: checkType
                 })
-                console.log("查看传进his.state.checkType", checkType)
             if (checkType == '1') {
                 localStorage.setItem("searchCityKey", this.state.cityKey);
                 localStorage.setItem("searchText", value);
@@ -234,16 +209,13 @@ class IndexSearch extends Component {
             }
             else {
                 message.warning('抱歉，您的免费搜索次数已达上限，请付费后继续使用！');
-                // window.location.href = '/index/payPage/1';
-                console.log("this.state.checkType", checkType)
             }
             })
-            
         } else {
             message.warning('关键字请勿为空，请重新输入！');
         }
-
     }
+
     handleChange = (value) => {
         console.log("value.key",value.key); // { key: "lucy", label: "Lucy (101)" }
         this.setState({
@@ -252,7 +224,20 @@ class IndexSearch extends Component {
     }
 
     render() {
-        console.log("查看传进his.state.checkType",this.state.checkType)
+        const selectBefore = (
+            <Select
+                labelInValue
+                defaultValue={{ key: 'cq' }}
+                style={{ width: 80 }}
+                onChange={this.handleChange}
+            >
+                {this.state.cityName.map((item, index) => {
+                    return (
+                        <Option value={item.key}>{item.name}</Option>
+                    )
+                })}
+            </Select>
+          );
         return (
             <div>
                 <div>
@@ -262,99 +247,25 @@ class IndexSearch extends Component {
                     </div>
                     <div id="search_box">
 
-                        <Row type="flex" justify="center" align="middle" style={{ minWidth: 900 }}>
-
-                            <Col xs={{ span: 1, offset: 0 }} lg={{ span: 1, offset: 0 }}>
-                                <Select
-                                    labelInValue
-                                    defaultValue={{ key: 'cq' }}
-                                    style={{ width: 120 }}
-                                    onChange={this.handleChange}
-                                    // onBlur={this.handleBlur}
-                                >
-                                    {this.state.cityName.map((item, index) => {
-                                        return (
-                                            <Option value={item.key}>{item.name}</Option>
-                                        )
-                                        // <Option value="{index}">{item}</Option>
-                                        //console.log(item.name,index);
-                                        //console.log();
-                                    })}
-
-                                    {/* <Option value="chongQing">重庆</Option>
-                                    <Option value="beiJing">北京</Option> */}
-                                </Select>
-                            </Col>
-                            <Col xs={{ span: 2, offset: 1 }} lg={{ span: 6, offset: 1 }}>
+                        <Row type="flex" align="middle" >
+                        <Col xs={0} sm={0} md={8} lg={8} xl={8}></Col>
+                            <Col sxs={8} sm={8} md={8} lg={8} xl={8}>
                                 <Search
+                                    addonBefore={selectBefore}
                                     placeholder="input search text"
                                     enterButton
                                     size="large"
                                     onSearch={
                                         value => this.onSearch(value)
                                     }
-                                    style={{ width: 450 }}
+                                    //style={{ width: 450 }}
                                     justify="center"
                                 />
                             </Col>
-
+                            <Col xs={0} sm={0} md={8} lg={8} xl={8}></Col>
                         </Row>
-
                     </div>
-
-
-
-
-                    {/* <div>
-                        <Select
-                            labelInValue
-                            defaultValue={{ key: 'lucy' }}
-                            style={{ width: 120 }}
-                            onChange={this.handleChange}
-                        >
-                            <Option value="jack">Jack (100)</Option>
-                            <Option value="lucy">Lucy (101)</Option>
-                        </Select>,
-                    </div>
-
-
-                    <Row type="flex" justify="center" align="middle" >
-                        <Search
-                            placeholder="input search text"
-                            enterButton="Search"
-                            size="large"
-                            onSearch={
-                                value => this.onSearch(value)
-                            }
-                            style={{ width: 450 }}
-                            justify="center"
-                        />
-                    </Row> */}
-
-
                 </div>
-                {/* <div>
-                <Row type="flex" justify="center" align="middle" >
-                    <Card style={{ width: 800,height:140 }}>
-                        <Card.Grid style={gridStyle}>Content</Card.Grid>
-                        <Card.Grid hoverable={false} style={gridStyle}>
-                            Content
-                        </Card.Grid>
-                        <Card.Grid style={gridStyle}>Content</Card.Grid>
-                        <Card.Grid style={gridStyle}>Content</Card.Grid>
-                        <Card.Grid style={gridStyle}>Content</Card.Grid>
-                        <Card.Grid style={gridStyle}>Content</Card.Grid>
-                        <Card.Grid style={gridStyle}>Content</Card.Grid>
-                        <Card.Grid style={gridStyle}>Content</Card.Grid>
-                    </Card>
-                    </Row>
-
-                </div> */}
-
-
-
-
-
             </div>
 
         );

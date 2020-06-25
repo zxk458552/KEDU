@@ -8,6 +8,11 @@ import ParticlesBg from 'particles-bg'
 import { getUserip} from '../axios/index'
 
 
+/**
+ * 首页
+ */
+
+
 const { Header, Content, Footer } = Layout;
 
 
@@ -24,7 +29,6 @@ class IndexPage extends React.Component {
     localStorage.removeItem("menuKey");
     console.log("menuKey is clear")
     getUserip().then(res => {
-      console.log("getUserip",res)
       var userIp = res;
       this.setState({
         userIp 
@@ -37,7 +41,6 @@ class IndexPage extends React.Component {
   render() {
     return (
       <div>
-        {/* <ParticlesBg  bg={true} config={config} background-color="#1890ff"/> */}
         <Particles
           params={{
             "particles": {
@@ -172,11 +175,6 @@ class IndexPage extends React.Component {
         <div id="index-footer">
           KEDU  ©2020 Created by Zxk Yxy Wmx
         </div>
-        {/* <Layout>
-          <Footer style={position='fixed', bottom=0}>
-
-          </Footer>
-        </Layout> */}
       </div>
 
     );

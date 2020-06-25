@@ -6,6 +6,10 @@ import {LoadingOutlined} from '@ant-design/icons';
 const { Header, Content, Footer } = Layout;
 
 
+/**
+ * 导航菜单
+ */
+
 class HeaderMenu extends React.Component {
     constructor(props) {
         super(props);
@@ -26,9 +30,6 @@ class HeaderMenu extends React.Component {
     setKey = (value) =>{
 
         console.log(value.key);
-        // this.setState({
-        //     menuKey:value.key
-        // })
         localStorage.removeItem("searchCityKey");
         localStorage.removeItem("searchText");
         localStorage.setItem('menuKey',value.key);
@@ -37,8 +38,6 @@ class HeaderMenu extends React.Component {
     render() {
         return (
             <div>
-                {/* <Layout> */}
-                
                     <Header style={{ position:'fixed',top:0 ,width:'100%',zIndex:100}}>
                         <Menu
                             id="header-menu"
@@ -48,12 +47,9 @@ class HeaderMenu extends React.Component {
                             style={{ lineHeight: '64px' }}
                         >
                             <Menu.Item key="1" onClick={this.setKey.bind(this)}><Link to='/'>首 页</Link></Menu.Item>
-                            <Menu.Item key="2" onClick={this.setKey.bind(this)}><Link to='/index/payPage/2'>继续使用</Link></Menu.Item>
-                            
-                            {/* <Menu.Item key="3" onClick={this.setKey.bind(this)}>关于我们</Menu.Item> */}
+                            <Menu.Item key="2" onClick={this.setKey.bind(this)}><Link to='/index/payPage/2'>成为VIP</Link></Menu.Item>
                         </Menu>
                     </Header>
-                {/* </Layout> */}
 
             </div>
             
